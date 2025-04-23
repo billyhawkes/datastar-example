@@ -39,8 +39,6 @@ const Layout = ({
   );
 };
 
-const app = new Hono();
-
 const db = new Database("sqlite.db");
 
 const countRouter = new Hono()
@@ -51,6 +49,7 @@ const countRouter = new Hono()
         string
       >(`SELECT value FROM key_value WHERE key = ?;`)
       .get("count");
+
     return c.html(
       <Layout title="Count">
         <CountExample count={count ? parseInt(count.value) : undefined} />
@@ -73,6 +72,8 @@ const countRouter = new Hono()
       });
     });
   });
+
+const app = new Hono();
 
 app.route("/count", countRouter);
 
