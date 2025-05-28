@@ -11,6 +11,8 @@ db.exec(`CREATE TABLE IF NOT EXISTS key_value (
 );`);
 
 const CountExample = ({ count = 0 }: { count?: number }) => {
+  console.log("COUNT-EXAMPLE", count);
+
   return (
     <div data-signals={`{ count: ${count} }`}>
       <div data-text="$count"></div>
@@ -54,6 +56,8 @@ const countRouter = new Hono()
         string
       >(`SELECT value FROM key_value WHERE key = ?;`)
       .get("count");
+
+    console.log("COUNT", count);
 
     return c.html(
       <Layout title="Count">
