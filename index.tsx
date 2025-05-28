@@ -3,7 +3,7 @@ import type { JSX } from "hono/jsx/jsx-runtime";
 import { streamSSE } from "hono/streaming";
 import { Database } from "bun:sqlite";
 
-const db = new Database("sqlite.db");
+const db = new Database("persist/sqlite.db");
 db.exec(`CREATE TABLE IF NOT EXISTS key_value (
   key TEXT NOT NULL PRIMARY KEY,
   value,
