@@ -3,6 +3,13 @@ import type { JSX } from "hono/jsx/jsx-runtime";
 import { streamSSE } from "hono/streaming";
 import { Database } from "bun:sqlite";
 
+const db = new Database("sqlite.db");
+db.exec(`CREATE TABLE IF NOT EXISTS key_value (
+  key TEXT NOT NULL PRIMARY KEY,
+  value,
+  UNIQUE(key)
+);`);
+
 const CountExample = ({ count = 0 }: { count?: number }) => {
   return (
     <div data-signals={`{ count: ${count} }`}>
@@ -38,8 +45,6 @@ const Layout = ({
     </html>
   );
 };
-
-const db = new Database("sqlite.db");
 
 const countRouter = new Hono()
   .get("/", async (c) => {
